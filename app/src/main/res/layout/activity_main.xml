@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyActivity.MainActivity"
+    android:orientation="vertical"
+    >
+    <!--抽屉-->
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/dl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <!--主界面内容
+            一定要放在侧滑菜单布局的前面
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:id="@+id/relative"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                >
+
+            </RelativeLayout>
+            <RadioGroup
+                android:id="@+id/radio_gp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                >
+                <RadioButton
+                    android:id="@+id/ping"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="平假名"
+                    android:gravity="center"
+                    android:textSize="22sp"
+                    android:button="@null"
+                    android:textStyle="normal"
+                    android:textColor="#fff"
+                    android:background="@drawable/radiobutton_true_shape"
+                    />
+                <RadioButton
+                    android:id="@+id/pian"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="片假名"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:textSize="22sp"
+                    android:textColor="#fff"
+                    android:background="@drawable/radiobutton_false_shape"
+                    />
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <!--抽屉的布局-->
+        <RelativeLayout
+            android:id="@+id/rl_drawer"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="#37fcfcfc"
+            android:layout_gravity="start"
+            >
+
+            <RadioGroup
+                android:id="@+id/rg_share"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                >
+                <RadioButton
+                    android:id="@+id/wx_friend"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:drawableTop="@mipmap/umeng_socialize_wechat"
+                    />
+                <RadioButton
+                    android:id="@+id/wx_quan"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:drawableTop="@mipmap/umeng_socialize_wxcircle"
+                    android:button="@null"
+                    />
+            </RadioGroup>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>

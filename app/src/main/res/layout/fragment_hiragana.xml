@@ -1,0 +1,54 @@
+<com.example.administrator.studyjapanese.MyView.TouchRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/touch"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/yeye"
+    tools:context="com.example.administrator.studyjapanese.MyFragment.HiraganaFragment">
+    <Button
+        android:id="@+id/bt_hiragana"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="7dp"
+        android:background="@drawable/image_shape"
+        android:text="表"
+        android:textSize="23sp"
+        android:textColor="#1eb3f9"
+        />
+
+    <ImageView
+        android:id="@+id/image_share"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="7dp"
+        android:src="@mipmap/share"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/image_shape"
+        />
+
+    <TextView
+        android:id="@+id/hira_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="あ"
+        android:textSize="80sp"
+        android:textColor="#47d4f7"
+        android:layout_centerInParent="true"
+        />
+    <TextView
+        android:id="@+id/text_duyin"
+        android:layout_below="@+id/hira_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ra"
+        android:textColor="#f20c0c"
+        android:textSize="40sp"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        />
+
+</com.example.administrator.studyjapanese.MyView.TouchRelativeLayout>
