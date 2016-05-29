@@ -1,26 +1,23 @@
 package com.example.administrator.studyjapanese.MyActivity;
 
-import android.app.Notification;
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.administrator.studyjapanese.MyFragment.HiraganaFragment;
 import com.example.administrator.studyjapanese.R;
-import com.example.administrator.studyjapanese.Utils.WxUtils;
+import com.example.administrator.studyjapanese.Utils.ShareUtils;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
-public class MainActivity extends AppCompatActivity implements HiraganaFragment.OnShareClickListener{
+public class MainActivity extends AppCompatActivity implements HiraganaFragment.OnShareClickListener, IUiListener {
 
     private RadioGroup group;
     private FragmentManager manager;
@@ -31,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements HiraganaFragment.
     private RadioGroup rg_share;
     private DrawerLayout dl;
     private RelativeLayout rl;
+    private HiraganaFragment fragment;
+    private Tencent tencent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements HiraganaFragment.
                 //开启事务
                 FragmentTransaction action = manager.beginTransaction();
                 HiraganaFragment fragment = new HiraganaFragment();
+                fragment.setOnShareListener(MainActivity.this);
                 switch (checkedId){
                     case R.id.ping :
                         Bundle bundle = new Bundle();
@@ -78,11 +78,20 @@ public class MainActivity extends AppCompatActivity implements HiraganaFragment.
                 switch (checkedId){
                     case R.id.wx_friend :
                         //分享到微信好友
-                        WxUtils.wxTextShare(MainActivity.this,"会话列表",WxUtils.isWxFriend);
+                        ShareUtils.wxTextShare(MainActivity.this,"会话列表", ShareUtils.isWxFriend);
                         break;
                     case R.id.wx_quan :
                         //分享到微信朋友圈
-                        WxUtils.wxTextShare(MainActivity.this,"朋友圈",WxUtils.isWxQuan);
+                        ShareUtils.wxTextShare(MainActivity.this,"朋友圈", ShareUtils.isWxQuan);
+                        break;
+                    case R.id.qq_Session :
+                        //分享到qq会话列表
+                        tencent.shareToQQ(MainActivity.this,
+                                ShareUtils.getToQQMessageBundle(),MainActivity.this);
+                        break;
+                    case R.id.qq_zone :
+                        //分享到qq空间
+
                         break;
                 }
             }
@@ -91,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements HiraganaFragment.
     }
 
     private void initView() {
+        //初始化腾讯接口的实例
+        tencent = Tencent.createInstance("",getApplicationContext());
 
         actionBar = getSupportActionBar();
         actionBar.hide();
@@ -107,13 +118,13 @@ public class MainActivity extends AppCompatActivity implements HiraganaFragment.
         group.check(R.id.ping);
         //进入app先让其加载平假名界面
         FragmentTransaction transaction = manager.beginTransaction();
-        HiraganaFragment fragment = new HiraganaFragment();
+        fragment = new HiraganaFragment();
         fragment.setOnShareListener(this);
         Bundle bundle = new Bundle();
         //根据标签显示使fragment显示不同的内容
         bundle.putInt("tag",1);
         fragment.setArguments(bundle);
-        transaction.add(R.id.relative,fragment);
+        transaction.add(R.id.relative, fragment);
         transaction.commit();
     }
 
@@ -123,5 +134,20 @@ public class MainActivity extends AppCompatActivity implements HiraganaFragment.
     @Override
     public void OnShareClick() {
         drawerLayout.openDrawer(rl);
+    }
+
+    @Override
+    public void onComplete(Object o) {
+
+    }
+
+    @Override
+    public void onError(UiError uiError) {
+
+    }
+
+    @Override
+    public void onCancel() {
+
     }
 }
